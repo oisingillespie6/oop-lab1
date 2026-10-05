@@ -3,27 +3,40 @@ package ie.atu.oop;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args)
-    {
-        try {
+    public static void main(String[] args) {
+        Book dune = new Book(
+                "Dune", "Frank Herbert", 412);
+        Book nineteenEightyFour = new Book(
+                "1984", "George Orwell", 328);
+        Book cleanCode = new Book(
+                "Clean Code", "Robert C. Martin", 464);
 
-            Book myBook = new Book("Dune", "Frank Herbert", 10);
-            LibraryService service = new LibraryService();
-            System.out.println("Creating a new book");
-            System.out.println(myBook.getStatus());
-            myBook.borrowBook();
-            System.out.println(myBook.getStatus());
-            myBook.returnBook();
-            System.out.println(myBook.getStatus());
+        LibraryService service = new LibraryService();
+        service.addBook(dune);
+        service.addBook(nineteenEightyFour);
+        service.addBook(cleanCode);
 
-            service.loanBook(myBook,14);
-            System.out.println(myBook.getStatus());
+        System.out.println("Count: " + service.getBookCount());
 
-
-        } catch (IllegalArgumentException ex)
-        {
-            System.out.println(ex.getMessage());
+        Book found = service.findBookByTitle("Dune");
+        if (found != null) {
+            System.out.println("Found: " + found.getTitle());
         }
 
+        System.out.println("Loan Dune: "
+                + service.loanBook("Dune", 7));
+        System.out.println("Dune status: " + dune.getStatus());
+
+        System.out.println("Loan missing: "
+                + service.loanBook("The Hobbit", 7));
+
+        System.out.println("Return Dune: "
+                + service.returnBook("Dune"));
+        System.out.println("Dune status: " + dune.getStatus());
+
+        System.out.println("Remove Clean Code: "
+                + service.removeBook("Clean Code"));
+        System.out.println("Final count: "
+                + service.getBookCount());
     }
 }
