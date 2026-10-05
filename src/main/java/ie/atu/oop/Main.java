@@ -5,25 +5,26 @@ package ie.atu.oop;
 public class Main {
     public static void main(String[] args)
     {
-        try {
+        Book dune = new Book(
+        "Dune","Frank Herbert", 412);
+        Book nineteenEightyFour = new Book(
+                "1984","George Orwell",328);
+        Book cleanCode = new Book(
+                "Clean Code", "Robert C. Martin", 464
+        );
+        LibraryService service = new LibraryService();
 
-            Book myBook = new Book("Dune", "Frank Herbert", 10);
-            LibraryService service = new LibraryService();
-            System.out.println("Creating a new book");
-            System.out.println(myBook.getStatus());
-            myBook.borrowBook();
-            System.out.println(myBook.getStatus());
-            myBook.returnBook();
-            System.out.println(myBook.getStatus());
+        service.addBook(dune);
+        service.addBook(nineteenEightyFour);
+        service.addBook(cleanCode);
 
-            service.loanBook(myBook,14);
-            System.out.println(myBook.getStatus());
+        System.out.println("Books: " + service.getBookCount());
 
-
-        } catch (IllegalArgumentException ex)
-        {
-            System.out.println(ex.getMessage());
+        for(Book book: service.getAllBooks()){
+            System.out.println(book.getTitle());
         }
 
     }
+
+
 }

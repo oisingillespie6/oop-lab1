@@ -1,7 +1,24 @@
 package ie.atu.oop;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LibraryService {
     private static final int MAX_LOAN_DAYS = 14;
+    private final List<Book> books = new ArrayList<>();
+
+    public void addBook(Book book) {
+        if(book == null){
+            throw new IllegalArgumentException("Book cannot be null");
+        }
+        books.add(book);
+    }
+    public int getBookCount() {
+        return books.size();
+    }
+    public List <Book> getAllBooks(){
+        return new ArrayList<>(books);
+    }
+
 
     public void loanBook(Book book, int loandays){
         if(book == null){
